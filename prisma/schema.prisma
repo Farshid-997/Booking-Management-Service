@@ -8,78 +8,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
+  id       String    @id @default (uuid())
+  name      String?
+  username  String   
+  email     String    @unique
   password  String
-  role       Role?      @default(customer)
+  role       Role?      @default(user)
   contactNo  String
   address    String
   profileImg String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
-
- 
-  cartItems Service[] @relation("CartItems", references: [id])
- 
-  bookings  Service[] @relation("Bookings", references: [id])
   
   reviews   Review[]
-
+  bookings  Booking[]
   @@map("users")
 }
 
+
 model Service {
-  id          Int       @id @default(autoincrement())
+   id         String    @id @default (uuid())
   name        String
   description String
   price       Float
   availability Boolean
  
-
- 
-  usersInCart User[] @relation("CartItems")
- 
-  bookedBy    User[] @relation("Bookings")
- 
-  reviews     Review[]
+  bookings Booking[]
+  reviews  Review[]
+  @@map("services")
 }
 
 model Review {
-  id     Int    @id @default(autoincrement())
-  rating Int
-  text   String
+  id        String    @id @default (uuid())
+  rating    Int
+  text      String
+  user User @relation(fields:[userId],references: [id])
+  service Service @relation(fields: [serviceId],references: [id])
+  userId  String
+  serviceId String
 
-
-  service Service @relation(fields: [serviceId], references: [id])
-  serviceId Int
- 
-  user    User    @relation(fields: [userId], references: [id])
-  userId  Int
+  @@map("reviews")
 }
 
 model Booking {
   id        Int     @id @default(autoincrement())
-  userId    Int
-  serviceId Int
+  userId    String
+  serviceId String
   date      DateTime
   status    String
  
-
+  user User @relation(fields: [userId],references: [id])
+  service Service @relation(fields: [serviceId],references: [id])
  
-  user    User @relation(fields: [userId], references: [id])
- 
-  service Service @relation(fields: [serviceId], references: [id])
+ @@map("bookings")
 }
 
 
 enum Role{
+  superadmin
   admin
-  customer
+ user
 }
 enum  Status{
   pending
