@@ -29,9 +29,9 @@ const createUser: RequestHandler = catchAsync(
 const loginUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...userData } = req.body;
+
     const result = await authService.loginUserService(userData);
     const { refreshToken, ...others } = result;
-    // set refresh token into cookie
 
     const cookieOptions = {
       secure: true,

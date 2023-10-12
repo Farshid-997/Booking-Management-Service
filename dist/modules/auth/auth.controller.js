@@ -46,6 +46,7 @@ const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
 // login
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = __rest(req.body, []);
+    console.log('req', req.body);
     const result = yield auth_service_1.authService.loginUserService(userData);
     const { refreshToken } = result, others = __rest(result, ["refreshToken"]);
     // set refresh token into cookie
