@@ -31,7 +31,9 @@ model Service {
    id         String    @id @default (uuid())
   name        String
   description String
-  price       Float
+  price       Int
+  location    String
+  category    String
   availability Boolean
  
   bookings Booking[]

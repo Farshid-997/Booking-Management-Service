@@ -47,7 +47,7 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 
   const result = await UserService.deleteUser(id);
 
-  sendResponse<{}>(res, {
+  sendResponse<User>(res, {
     statusCode: 200,
     success: true,
     message: 'Uers deleted successfully',
