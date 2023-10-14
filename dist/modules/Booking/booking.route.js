@@ -11,11 +11,11 @@ router.post('/create-booking',
 // auth(ENUM_USER_ROLE.ADMIN),
 booking_controller_1.bookingController.createBooking);
 router.get('/bookings', booking_controller_1.bookingController.getAllBookings);
-router.get('/booking/:id', booking_controller_1.bookingController.singleBooking);
-router.patch('/booking/:id', 
+router.get('/:id', booking_controller_1.bookingController.singleBooking);
+router.patch('/:id', 
 // auth(ENUM_USER_ROLE.ADMIN),
 booking_controller_1.bookingController.updateBooking);
-router.delete('/booking/:id', 
+router.delete('/:id', 
 // auth(ENUM_USER_ROLE.ADMIN),
 booking_controller_1.bookingController.deleteBooking);
 exports.bookingRoutes = router;

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const booking_route_1 = require("../../modules/Booking/booking.route");
+const review_route_1 = require("../../modules/Review/review.route");
 const service_route_1 = require("../../modules/Service/service.route");
 const auth_route_1 = require("../../modules/auth/auth.route");
 const user_route_1 = require("../../modules/user/user.route");
@@ -25,6 +26,10 @@ const moduleRoutes = [
     {
         path: '/booking',
         route: booking_route_1.bookingRoutes,
+    },
+    {
+        path: '/review',
+        route: review_route_1.reviewRoutes,
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

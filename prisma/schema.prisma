@@ -57,7 +57,7 @@ model Booking {
   id        String    @id @default (uuid())
   userId    String
   serviceId String
-  date      DateTime
+  date      String
   status    String
  
   user User @relation(fields: [userId],references: [id])

@@ -15,7 +15,7 @@ const createBooking = async (booking: Booking): Promise<Booking | null> => {
   });
 
   if (!result) {
-    throw new ApiError(400, 'failed to created new service');
+    throw new ApiError(400, 'failed to created new booking');
   }
   return result;
 };
@@ -55,6 +55,11 @@ const getAllBooking = async (
     where: whereConditions,
     skip,
     take: limit,
+
+    include: {
+      user: true,
+      service: true,
+    },
   });
 
   const total = await prisma.booking.count({

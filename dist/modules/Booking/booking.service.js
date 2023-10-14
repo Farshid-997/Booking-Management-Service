@@ -34,7 +34,7 @@ const createBooking = (booking) => __awaiter(void 0, void 0, void 0, function* (
         data: booking,
     });
     if (!result) {
-        throw new ApiError_1.default(400, 'failed to created new service');
+        throw new ApiError_1.default(400, 'failed to created new booking');
     }
     return result;
 });
@@ -66,6 +66,10 @@ const getAllBooking = (filters, options) => __awaiter(void 0, void 0, void 0, fu
         where: whereConditions,
         skip,
         take: limit,
+        include: {
+            user: true,
+            service: true,
+        },
     });
     const total = yield prisma.booking.count({
         where: whereConditions,

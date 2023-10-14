@@ -10,15 +10,15 @@ router.post(
 
 router.get('/bookings', bookingController.getAllBookings);
 
-router.get('/booking/:id', bookingController.singleBooking);
+router.get('/:id', bookingController.singleBooking);
 
 router.patch(
-  '/booking/:id',
+  '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
   bookingController.updateBooking
 );
 router.delete(
-  '/booking/:id',
+  '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
   bookingController.deleteBooking
 );
