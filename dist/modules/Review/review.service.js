@@ -93,8 +93,18 @@ const getsingleReview = (id) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
+const updateReview = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma.review.update({
+        where: {
+            id,
+        },
+        data: payload,
+    });
+    return result;
+});
 exports.reviewService = {
     createReview,
     getAllReview,
     getsingleReview,
+    updateReview,
 };

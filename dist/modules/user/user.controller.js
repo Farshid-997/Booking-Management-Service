@@ -57,20 +57,19 @@ const deleteUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data: result,
     });
 }));
-const getProfile = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.user;
-    const result = yield user_service_1.UserService.getSingleUser(userId);
-    (0, sendResponse_1.sendResponse)(res, {
-        statusCode: 200,
-        success: true,
-        message: 'Profile retrieved successfully',
-        data: result,
-    });
-}));
+// const getProfile = catchAsync(async (req: Request, res: Response) => {
+//   const { userId } = req.user!;
+//   const result = await UserService.getSingleUser(userId);
+//   sendResponse<Partial<User>>(res, {
+//     statusCode: 200,
+//     success: true,
+//     message: 'Profile retrieved successfully',
+//     data: result,
+//   });
+// });
 exports.UserController = {
     getSingleUser,
     getAllUser,
     updateUser,
     deleteUser,
-    getProfile,
 };

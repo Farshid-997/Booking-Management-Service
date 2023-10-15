@@ -62,8 +62,19 @@ const singleReview = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
         data: result,
     });
 }));
+const updateController = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield review_service_1.reviewService.updateReview(id, req.body);
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Review updated successfully',
+        data: result,
+    });
+}));
 exports.reviewController = {
     createReview,
     getAllReviews,
     singleReview,
+    updateController,
 };

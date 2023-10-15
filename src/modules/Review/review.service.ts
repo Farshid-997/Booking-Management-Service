@@ -87,8 +87,22 @@ const getsingleReview = async (id: string): Promise<Review | null> => {
   return result;
 };
 
+const updateReview = async (
+  id: string,
+  payload: Partial<Review>
+): Promise<Review> => {
+  const result = await prisma.review.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+  return result;
+};
+
 export const reviewService = {
   createReview,
   getAllReview,
   getsingleReview,
+  updateReview,
 };

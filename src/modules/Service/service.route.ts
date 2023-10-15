@@ -1,27 +1,35 @@
 import express from 'express';
 
 import auth from '../../app/middlewares/auth';
+import validateRequest from '../../app/middlewares/validateRequest';
 import { ENUM_USER_ROLE } from '../../enums/user';
+import { serviceValidation } from './service.validation';
 import { serviceController } from './servicer.controller';
 
 const router = express.Router();
 router.post(
   '/create-service',
+  validateRequest(serviceValidation.createServiceZodSchema),
   auth(ENUM_USER_ROLE.ADMIN),
   serviceController.createService
 );
 
-router.get('/service', serviceController.getAllServices);
+router.get(
+  '/',
 
-router.get('/service/:id', serviceController.singleService);
+  serviceController.getAllServices
+);
+
+router.get('/:id', serviceController.singleService);
 
 router.patch(
-  '/service/:id',
+  '/:id',
+  validateRequest(serviceValidation.updateServiceZodSchema),
   auth(ENUM_USER_ROLE.ADMIN),
   serviceController.updateService
 );
 router.delete(
-  '/service/:id',
+  '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
   serviceController.deleteService
 );
