@@ -33,6 +33,7 @@ const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     const result = yield auth_service_1.authService.createUserService(userData);
     let dataWithoutPass;
     if (result) {
+        // eslint-disable-next-line no-unused-vars
         const { password } = result, rest = __rest(result, ["password"]);
         dataWithoutPass = rest;
     }
@@ -53,11 +54,11 @@ const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         httpOnly: true,
     };
     res.cookie('refreshToken', refreshToken, cookieOptions);
-    (0, sendResponse_1.reponseAuthFormat)(res, {
+    (0, sendResponse_1.sendResponse)(res, {
         success: true,
         statusCode: 200,
         message: 'User signin successfully!',
-        token: others.token,
+        data: others,
     });
 }));
 const getRefreshToken = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {

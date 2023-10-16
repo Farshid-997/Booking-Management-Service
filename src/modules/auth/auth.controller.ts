@@ -2,8 +2,11 @@ import { Request, RequestHandler, Response } from 'express';
 import catchAsync from '../../shared/catchAsync';
 
 import { User } from '@prisma/client';
-import { IRefreshTokenResponse } from '../../interfaces/login';
-import { reponseAuthFormat, sendResponse } from '../../shared/sendResponse';
+import {
+  ILoginUserResponse,
+  IRefreshTokenResponse,
+} from '../../interfaces/login';
+import { sendResponse } from '../../shared/sendResponse';
 import { authService } from './auth.service';
 
 // signup
@@ -14,6 +17,7 @@ const createUser: RequestHandler = catchAsync(
     const result = await authService.createUserService(userData);
     let dataWithoutPass;
     if (result) {
+      // eslint-disable-next-line no-unused-vars
       const { password, ...rest } = result;
       dataWithoutPass = rest;
     }
@@ -39,11 +43,11 @@ const loginUser: RequestHandler = catchAsync(
     };
 
     res.cookie('refreshToken', refreshToken, cookieOptions);
-    reponseAuthFormat<string>(res, {
+    sendResponse<ILoginUserResponse>(res, {
       success: true,
       statusCode: 200,
       message: 'User signin successfully!',
-      token: others.token,
+      data: others,
     });
   }
 );
