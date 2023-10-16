@@ -48,8 +48,22 @@ const singleReview = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateController = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await reviewService.updateReview(id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Review updated successfully',
+
+    data: result,
+  });
+});
+
 export const reviewController = {
   createReview,
   getAllReviews,
   singleReview,
+  updateController,
 };
