@@ -18,7 +18,6 @@ const createUserZodSchema = zod_1.z.object({
             required_error: 'Email is required',
         }),
         role: zod_1.z.string().optional(),
-        profileImg: zod_1.z.string().optional(),
         address: zod_1.z.string({
             required_error: 'Address is required',
         }),

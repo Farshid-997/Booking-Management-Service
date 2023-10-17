@@ -17,7 +17,7 @@ model User {
   role       Role?      @default(user)
   contactNo  String
   address    String
-  profileImg String
+  profileImg String?
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   
