@@ -15,15 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../shared/catchAsync"));
+const pick_1 = __importDefault(require("../../shared/pick"));
 const sendResponse_1 = require("../../shared/sendResponse");
+const user_constant_1 = require("./user.constant");
 const user_service_1 = require("./user.service");
 const getAllUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield user_service_1.UserService.getAllUser();
+    const filters = (0, pick_1.default)(req.query, user_constant_1.userFilterableFields);
+    const options = (0, pick_1.default)(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+    const result = yield user_service_1.UserService.getAllUser(filters, options);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
         message: 'Users retrieved successfully',
-        data: users,
+        meta: result.meta,
+        data: result.data,
     });
 }));
 const getSingleUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {

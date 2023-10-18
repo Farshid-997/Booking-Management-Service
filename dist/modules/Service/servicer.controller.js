@@ -32,6 +32,7 @@ const service_constant_1 = require("./service.constant");
 const service_service_1 = require("./service.service");
 const createService = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const serviceData = __rest(req.body, []);
+    console.log('req', req.body);
     const result = yield service_service_1.serviceService.createService(serviceData);
     (0, sendResponse_1.sendResponse)(res, {
         success: true,

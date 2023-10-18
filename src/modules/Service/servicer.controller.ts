@@ -10,7 +10,7 @@ import { serviceService } from './service.service';
 const createService: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { ...serviceData } = req.body;
-
+    console.log('req', req.body);
     const result = await serviceService.createService(serviceData);
 
     sendResponse<Service>(res, {

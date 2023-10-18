@@ -1,21 +1,13 @@
-export const serviceFilterableFields: string[] = [
-  'searchTerm',
-  'price',
-  'name',
-];
+export const adminFilterableFields: string[] = ['searchTerm', 'name'];
 
-export const serviceSearchableFields: string[] = [
-  'name',
-  'location',
-  'category',
-];
+export const adminSearchableFields: string[] = ['name'];
 // export const serviceRelationalFields: string[] = ['categoryId'];
 // export const serviceRelationalFieldsMapper: { [key: string]: string } = {
 //   categoryId: 'category',
 // };
-export type IServiceFilterRequest = {
+export type IAdminFilterRequest = {
   searchTerm?: string | undefined;
   search?: string | undefined;
-  price?: string | undefined;
+
   name?: string | undefined;
 };

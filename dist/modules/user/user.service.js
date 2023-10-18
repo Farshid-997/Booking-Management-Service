@@ -26,15 +26,59 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const client_1 = require("@prisma/client");
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
+const paginationHelper_1 = require("../../helpers/paginationHelper");
+const user_constant_1 = require("./user.constant");
 const prisma = new client_1.PrismaClient();
-const getAllUser = () => __awaiter(void 0, void 0, void 0, function* () {
-    const allUsers = yield prisma.user.findMany({});
-    const result = allUsers.map((_a) => {
-        var { password } = _a, rest = __rest(_a, ["password"]);
-        return rest;
+const getAllUser = (filters, options) => __awaiter(void 0, void 0, void 0, function* () {
+    const { limit, page, skip } = paginationHelper_1.paginationHelpers.calculatePagination(options);
+    const { searchTerm } = filters, filterData = __rest(filters, ["searchTerm"]);
+    const andConditions = [];
+    if (searchTerm) {
+        andConditions.push({
+            OR: user_constant_1.userSearchableFields.map(field => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive',
+                },
+            })),
+        });
+    }
+    if (Object.keys(filterData).length > 0) {
+        andConditions.push({
+            AND: Object.keys(filterData).map(key => ({
+                [key]: {
+                    equals: filterData[key],
+                },
+            })),
+        });
+    }
+    const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
+    const result = yield prisma.user.findMany({
+        where: whereConditions,
+        skip,
+        take: limit,
     });
-    return result;
+    const total = yield prisma.user.count({
+        where: whereConditions,
+    });
+    const totalPages = Math.ceil(total / Number(limit));
+    return {
+        meta: {
+            total,
+            page,
+            limit,
+            totalPages,
+        },
+        data: result,
+    };
 });
+// const getAllUser = async (): Promise<any[] | null> => {
+//   const allUsers = await prisma.user.findMany({});
+//   const result = allUsers.map(({ password, ...rest }) => {
+//     return rest;
+//   });
+//   return result;
+// };
 const getSingleUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield prisma.user.findUnique({
         where: {

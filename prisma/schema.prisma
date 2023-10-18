@@ -31,10 +31,10 @@ model Service {
   id          String    @id @default (uuid())
   name        String
   description String
-  price       Int
+  price       String
   location    String
   category    String
-  availability Boolean
+  availability String
  
   bookings Booking[]
   reviews  Review[]

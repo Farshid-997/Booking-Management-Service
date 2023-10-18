@@ -11,13 +11,7 @@ const createServiceZodSchema = zod_1.z.object({
         description: zod_1.z.string({
             required_error: 'Service Description is required',
         }),
-        price: zod_1.z.number({
-            required_error: 'Service Price is required',
-        }),
         location: zod_1.z.string().optional(),
-    }),
-    availability: zod_1.z.boolean({
-        required_error: 'Available Service  is required',
     }),
 });
 const updateServiceZodSchema = zod_1.z.object({

@@ -1,21 +1,27 @@
-export const serviceFilterableFields: string[] = [
+export const userFilterableFields: string[] = [
   'searchTerm',
-  'price',
+  'username',
   'name',
+  'email',
+  'role',
 ];
 
-export const serviceSearchableFields: string[] = [
+export const userSearchableFields: string[] = [
+  'username',
   'name',
-  'location',
-  'category',
+  'email',
+  'role',
 ];
 // export const serviceRelationalFields: string[] = ['categoryId'];
 // export const serviceRelationalFieldsMapper: { [key: string]: string } = {
 //   categoryId: 'category',
 // };
-export type IServiceFilterRequest = {
+export type IUserFilterRequest = {
   searchTerm?: string | undefined;
   search?: string | undefined;
-  price?: string | undefined;
+
   name?: string | undefined;
+  username?: string | undefined;
+  email?: string | undefined;
+  role?: string | undefined;
 };
