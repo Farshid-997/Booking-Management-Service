@@ -12,7 +12,7 @@ const review_validation_1 = require("../Review/review.validation");
 const booking_controller_1 = require("./booking.controller");
 const router = express_1.default.Router();
 router.post('/create-booking', (0, validateRequest_1.default)(review_validation_1.reviewValidation.createReviewZodSchema), (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.USER), booking_controller_1.bookingController.createBooking);
-router.get('/bookings', booking_controller_1.bookingController.getAllBookings);
+router.get('/', booking_controller_1.bookingController.getAllBookings);
 router.get('/:id', booking_controller_1.bookingController.singleBooking);
 router.patch('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.USER), (0, validateRequest_1.default)(review_validation_1.reviewValidation.updateReviewZodSchema), booking_controller_1.bookingController.updateBooking);
 router.delete('/:id', (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.USER), booking_controller_1.bookingController.deleteBooking);

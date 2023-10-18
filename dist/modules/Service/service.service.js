@@ -99,6 +99,35 @@ const updateService = (id, payload) => __awaiter(void 0, void 0, void 0, functio
     return result;
 });
 const deleteService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    // Query related bookings and reviews for the service
+    const relatedService = yield prisma.service.findUnique({
+        where: { id },
+        include: { bookings: true, reviews: true },
+    });
+    if (!relatedService) {
+        throw new Error(`Service with id ${id} not found.`);
+    }
+    const relatedBookings = relatedService.bookings;
+    const relatedReviews = relatedService.reviews;
+    // Handle related bookings (if needed)
+    for (const booking of relatedBookings) {
+        yield prisma.booking.delete({
+            where: {
+                id: booking.id, // Assuming 'id' is the primary key of the 'bookings' table
+            },
+        });
+    }
+    // Handle related reviews (if needed)
+    if (relatedReviews) {
+        for (const review of relatedReviews) {
+            yield prisma.review.delete({
+                where: {
+                    id: review.id, // Assuming 'id' is the primary key of the 'reviews' table
+                },
+            });
+        }
+    }
+    // Finally, delete the service
     const result = yield prisma.service.delete({
         where: {
             id,

@@ -96,11 +96,46 @@ const updateService = async (
 };
 
 const deleteService = async (id: string): Promise<Service> => {
+  // Query related bookings and reviews for the service
+  const relatedService = await prisma.service.findUnique({
+    where: { id },
+    include: { bookings: true, reviews: true },
+  });
+
+  if (!relatedService) {
+    throw new Error(`Service with id ${id} not found.`);
+  }
+
+  const relatedBookings = relatedService.bookings;
+  const relatedReviews = relatedService.reviews;
+
+  // Handle related bookings (if needed)
+  for (const booking of relatedBookings) {
+    await prisma.booking.delete({
+      where: {
+        id: booking.id, // Assuming 'id' is the primary key of the 'bookings' table
+      },
+    });
+  }
+
+  // Handle related reviews (if needed)
+  if (relatedReviews) {
+    for (const review of relatedReviews) {
+      await prisma.review.delete({
+        where: {
+          id: review.id, // Assuming 'id' is the primary key of the 'reviews' table
+        },
+      });
+    }
+  }
+
+  // Finally, delete the service
   const result = await prisma.service.delete({
     where: {
       id,
     },
   });
+
   return result;
 };
 
