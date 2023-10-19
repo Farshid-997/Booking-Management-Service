@@ -10,7 +10,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://service-booking-management.vercel.app/',
     credentials: true,
   })
 );
