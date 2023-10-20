@@ -6,7 +6,7 @@ const createReviewZodSchema = z.object({
       required_error: 'Review Text is required',
     }),
 
-    rating: z.number({
+    rating: z.string({
       required_error: 'Review Rating is required',
     }),
   }),
@@ -17,7 +17,7 @@ const updateReviewZodSchema = z.object({
     id: z.string().optional(),
     text: z.string().optional(),
 
-    rating: z.number().optional(),
+    rating: z.string().optional(),
   }),
 });
 

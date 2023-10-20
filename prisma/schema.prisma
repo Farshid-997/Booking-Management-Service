@@ -43,7 +43,7 @@ model Service {
 
 model Review {
   id        String    @id @default (uuid())
-  rating    Int
+  rating    String
   text      String
   user User @relation(fields:[userId],references: [id])
   service Service @relation(fields: [serviceId],references: [id])
