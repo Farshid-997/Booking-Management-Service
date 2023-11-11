@@ -35,7 +35,8 @@ model Service {
   location    String
   category    String
   availability String
- 
+  image        String?
+  quantity     Int?
   bookings Booking[]
   reviews  Review[]
   @@map("services")
@@ -45,9 +46,11 @@ model Review {
   id        String    @id @default (uuid())
   rating    String
   text      String
+  image     String?
   user User @relation(fields:[userId],references: [id])
   service Service @relation(fields: [serviceId],references: [id])
   userId  String
+
   serviceId String
 
   @@map("reviews")
